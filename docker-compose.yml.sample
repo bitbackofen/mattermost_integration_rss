@@ -8,5 +8,5 @@ services:
       RSS_SHOW_NAME: 'False'
       RSS_SHOW_URL: 'False'
       MATTERMOST_CHANNEL: 'rss-stream'
-    env-file:
+    env_file:
       - feeds.env

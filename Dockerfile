@@ -1,16 +1,10 @@
 FROM python:2-slim
-RUN groupadd user && useradd --create-home --home-dir /home/user -g user user && mkdir -p /code && chown user:user /code
+RUN groupadd user && useradd --home /code --disabled-password --gecos "" -g user user
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		git \
-&& git clone https://github.com/bitbackofen/Rss-Atom-Feed-Integration-for-Mattermost.git /code \
-# Install python environment
-&& pip install -r /code/requirements.txt \
-&& apt-get purge -y --auto-remove \
-		git \
-&& rm -rf /var/lib/apt/lists/*
+COPY "feedfetcher.py","rssfeed.py","settings.py.docker" /code
 
-RUN cp /code/settings.py.docker /code/settings.py
+RUN pip install -r /code/requirements.txt \
+ && cp /code/settings.py.docker /code/settings.py
 
 WORKDIR /code
 USER user
