@@ -19,3 +19,5 @@ services:
       MATTERMOST_CHANNEL: 'rss-stream'
     env_file:
       - feeds.env
+    volumes:
+      - feeds.env:/code/feeds.env:rw
